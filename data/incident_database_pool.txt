@@ -1,0 +1,25 @@
+Incident ID: INC-2026-003
+System: Order Processing
+Category: Database
+Severity: High
+Date: 2 September 2026
+
+Title: Order Processing Failure Caused by Database Connection Exhaustion
+
+Summary:
+The order-processing automation began failing while attempting to access the PostgreSQL database.
+
+Symptoms:
+Workers reported database connection errors and multiple order transactions remained unprocessed.
+
+Investigation:
+The database server itself remained available. Application monitoring showed that the configured connection pool had reached its maximum capacity.
+
+Root Cause:
+A connection leak prevented completed operations from releasing database connections back to the pool. Eventually no connections were available for new transactions.
+
+Resolution:
+The connection leak was corrected and affected services were restarted. The connection-pool limit was temporarily increased while the fix was deployed.
+
+Prevention:
+Database connections must be released after every operation. Pool utilization should be monitored and alerts should trigger before connection capacity is exhausted.

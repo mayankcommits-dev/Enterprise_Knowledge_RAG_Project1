@@ -1,0 +1,25 @@
+Incident ID: INC-2026-002
+System: Invoice Automation
+Category: OCR Processing
+Severity: Medium
+Date: 22 August 2026
+
+Title: Invoice Processing Delays During OCR Service Degradation
+
+Summary:
+The invoice automation workflow experienced significant processing delays during a high-volume batch. Several invoice transactions exceeded the configured processing timeout.
+
+Symptoms:
+Invoice jobs remained in processing state longer than expected. Some transactions failed with timeout errors while waiting for OCR results.
+
+Investigation:
+The automation platform and queue infrastructure were operating normally. Monitoring showed increased response times from the external OCR service during the incident window.
+
+Root Cause:
+The external OCR service experienced degraded performance under high request volume. The automation workflow used a short fixed timeout and did not retry temporary OCR failures.
+
+Resolution:
+The OCR request timeout was increased and exponential-backoff retry logic was introduced for transient OCR failures.
+
+Prevention:
+OCR response latency should be monitored. Large invoice batches should use controlled request rates, and transient service failures should follow the approved retry strategy.

@@ -1,0 +1,21 @@
+Document ID: KB-RPA-011
+System: RPA Runtime
+Category: Robot Troubleshooting
+
+Title: Troubleshooting Unattended Robot Execution Failures
+
+Symptoms:
+An unattended automation may fail to start, disconnect during execution, or remain unavailable even though a job has been scheduled.
+
+Checks:
+Verify that the runtime machine is online and accessible. Confirm that the robot or machine configuration is correctly connected to the automation platform.
+
+Review job logs for authentication, application, selector, network, and dependency failures. Verify that required credentials and configuration assets are available to the process.
+
+If the automation interacts with a user interface, confirm that the target application's state and selectors still match the version expected by the workflow.
+
+Recovery:
+Resolve the identified dependency or configuration problem before restarting the job. Do not repeatedly restart a failing automation without investigating the underlying error.
+
+Escalation:
+If the failure cannot be resolved from execution logs and standard checks, preserve the relevant logs, job identifier, machine information, and error details before escalation.

@@ -1,0 +1,25 @@
+Incident ID: INC-2026-001
+System: Payment Gateway
+Category: Authentication
+Severity: High
+Date: 14 August 2026
+
+Title: Payment API Authentication Failures After Token Rotation
+
+Summary:
+The payment processing service began returning HTTP 401 Unauthorized responses shortly after the scheduled rotation of API access tokens. Approximately 38% of payment authorization requests failed during the incident window.
+
+Symptoms:
+Payment requests that previously succeeded began receiving HTTP 401 responses. Application logs showed repeated authentication failures even though the newly generated access token was valid.
+
+Investigation:
+The operations team verified that the new token had been successfully generated and stored in the secrets service. However, several running payment-service instances continued using an older token stored in their local authentication cache.
+
+Root Cause:
+The token rotation process updated the central secrets service but did not invalidate the local token cache of already-running payment-service instances. These instances therefore continued sending the expired token.
+
+Resolution:
+The operations team cleared the local authentication cache and restarted the affected payment-service instances. After restart, the services loaded the new token and payment authorization requests returned to normal.
+
+Prevention:
+The token-rotation workflow should invalidate application token caches automatically. Monitoring should also alert the operations team when HTTP 401 rates exceed the configured threshold after credential rotation.

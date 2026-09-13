@@ -1,0 +1,19 @@
+Document ID: SOP-OPS-004
+System: Automation Platform
+Category: Queue Operations
+
+Title: Queue Transaction Failure and Recovery Procedure
+
+Purpose:
+This procedure defines how operations teams should handle repeatedly failing automation queue transactions.
+
+Procedure:
+First determine whether the failure is a business exception or a system exception. Business exceptions caused by invalid input data should not be automatically retried unless the underlying data has been corrected.
+
+System exceptions caused by temporary infrastructure or service failures may be retried according to the configured retry policy.
+
+Before retrying a transaction, review the error message, execution logs, previous retry attempts, and dependent service status.
+
+Transactions that continue failing after the permitted retry attempts should be moved for manual investigation rather than repeatedly reprocessed.
+
+Operators must record the transaction identifier, failure category, retry count, and final resolution for troubleshooting and audit purposes.

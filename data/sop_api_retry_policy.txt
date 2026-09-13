@@ -1,0 +1,23 @@
+Document ID: SOP-ENG-007
+System: Integration Services
+Category: API Reliability
+
+Title: API Retry and Backoff Standard
+
+Purpose:
+This standard defines when enterprise automation services may retry failed API requests.
+
+Retryable Failures:
+Temporary failures such as HTTP 429 rate-limit responses, HTTP 500 server errors, HTTP 503 service-unavailable responses, network timeouts, and temporary connection failures may be retried.
+
+Non-Retryable Failures:
+Authentication failures such as HTTP 401 should not be blindly retried. Invalid requests such as HTTP 400 should be corrected before another request is attempted.
+
+Retry Strategy:
+Retryable requests should use exponential backoff. Each retry waits progressively longer before the next attempt in order to avoid overwhelming an already degraded dependency.
+
+Limits:
+Retries must have a configured maximum attempt count. After the maximum is reached, the failure should be logged and escalated or routed to the appropriate recovery workflow.
+
+Monitoring:
+Systems should record attempt count, final status, response code, and retry delays so recurring integration failures can be investigated.
