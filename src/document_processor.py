@@ -78,16 +78,5 @@ def create_chunks(documents, chunk_size, overlap):
 
     return all_chunks, all_ids, all_metadata
 
-all_chunks, all_ids, all_metadata = create_chunks(
-    documents, 20, 5)
-
-
-documents = load_documents("data")
-
-all_chunks, all_ids, all_metadata = create_chunks(
-    documents, 20, 5
-)
-
-
 
         

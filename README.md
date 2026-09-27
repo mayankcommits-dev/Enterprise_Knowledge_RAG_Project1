@@ -187,6 +187,7 @@ Current tests verify that:
 - the LLM is not called when the retrieval sufficiency gate rejects the evidence
 - relevant retrieval can proceed to generation
 - duplicate chunks from the same document produce only one source entry
+- empty retrieval is handled gracefully without calling the LLM
 
 Run the tests with:
 

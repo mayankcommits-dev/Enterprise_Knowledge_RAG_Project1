@@ -4,11 +4,12 @@ from groq import Groq
 
 load_dotenv()
 
-apikey = os.getenv("GROQ_API_KEY")
-client = Groq(api_key=apikey)
 
 def generate_answer(prompt):
 
+    apikey = os.getenv("GROQ_API_KEY")
+    client = Groq(api_key=apikey)
+    
     response= client.chat.completions.create(
             messages = [
         {   "role":"user",

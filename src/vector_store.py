@@ -1,6 +1,10 @@
+from pathlib import Path
 import chromadb
 
-client = chromadb.Client()
+project_root = Path(__file__).resolve().parent.parent
+chroma_path = project_root / "chroma_db"
+
+client = chromadb.PersistentClient(path=str(chroma_path))
 
 collections = client.get_or_create_collection(
     name= "enterprise_knowledge_base")

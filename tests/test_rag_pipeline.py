@@ -87,3 +87,20 @@ def test_duplicate_sources():
             "What caused the authentication failure?",3)
 
         assert result["sources"] == ["incident_payment_auth.txt"]
+
+#empty-retrieval case
+def test_empty_retrieval():
+
+    with patch("src.rag_pipeline.retriever.retrieve") as mock_retrieve, \
+         patch("src.rag_pipeline.llm.generate_answer") as mock_answer:
+
+        mock_retrieve.return_value = []
+
+        result = rag_pipeline.ask(
+            "What caused the unknown system failure?", 3
+        )
+
+        assert result["answer"] == "I don't have enough information to answer this."
+        assert result["sources"] == []
+
+        mock_answer.assert_not_called()
